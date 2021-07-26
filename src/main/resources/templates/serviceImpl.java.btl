@@ -1,0 +1,48 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+import com.common.jdbc.UnifiedServiceImpl;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * <p>
+ * ${table.comment!} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Transactional(isolation = Isolation.REPEATABLE_READ)
+@Service
+<% if(kotlin){ %>
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+<% }else{ %>
+@Transactional(isolation = Isolation.REPEATABLE_READ)
+public class ${table.serviceImplName} extends UnifiedServiceImpl<${table.mapperName}, ${entity}>   implements ${table.serviceName} {
+
+    /**
+     * 新增
+     */
+    @Override
+    public ${entity} add(${entity} ${controllerMappingHyphen}) {
+        super.save(${controllerMappingHyphen});
+        return ${controllerMappingHyphen};
+    }
+
+    /**
+     * 修改
+     */
+    @Override
+    public ${entity} update(${entity} ${controllerMappingHyphen}) {
+        super.updateById(${controllerMappingHyphen});
+        return ${controllerMappingHyphen};
+    }
+}
+<% } %>

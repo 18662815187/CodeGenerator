@@ -49,16 +49,23 @@ public class CodeGenerator {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://rm-bp1is9caac5z435j0o.mysql.rds.aliyuncs.com/live");
-        // dsc.setSchemaName("public");
+//        dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("fuwu");
-        dsc.setPassword("baie_test_2017");
+        dsc.setUsername("");
+        dsc.setPassword("");
         mpg.setDataSource(dsc);
 
+
+        String packageName="com.rose.live";
+
         // 包配置
-        PackageConfig pc = new PackageConfig();
-        //  pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.rose.live");
+        PackageConfig pc = new PackageConfig()
+                .setParent(packageName)
+                .setController("controller")
+//                .setModuleName("")
+//                .setService("manager")
+//                .setServiceImpl("manager.impl")
+                .setEntity("entity");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -103,12 +110,11 @@ public class CodeGenerator {
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
+        templateConfig.setEntity("/templates/entity.java");
+        templateConfig.setServiceImpl("/templates/serviceImpl.java");
+        templateConfig.setXml(null);
+        mpg.setTemplate(templateConfig);
 
-        // 配置自定义输出模板
-        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
 
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
